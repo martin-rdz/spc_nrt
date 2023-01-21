@@ -79,7 +79,8 @@ def write_timestep(outname, line):
         ts = f.variables['timestamp'][:]
         f.variables['timestamp'][:] = np.append(ts, line[1])
         #np.append(f.variables['timestamp'][:], line[1])
-        f.variables['sensor_T'][:] = np.append(ts, line[-1])
+        #f.variables['sensor_T'][:] = np.append(ts, line[-1])
+        f.variables['sensor_T'][-1] = line[-2]
 
         #counts_raw = f.variables['counts_raw'][:]
         f.variables['counts_raw'][-1,:] = np.array(line[2])
@@ -146,7 +147,7 @@ def start_serial():
                 # prepare a new netcdf file for the first entry
                 # or a new day
                 if no_records == 0 or dt_prev.date() != dt.date():
-                    outnc = f"{dt:%Y%m%d_%H%M}_raw.nc"
+                    outnc = f"data/{dt:%Y%m%d_%H%M}_raw.nc"
                     prepare_netcdf(outnc)
                 write_timestep(outnc, dec)
                 no_records += 1

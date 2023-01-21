@@ -53,7 +53,7 @@ def plot_1min(ds):
     fig, ax1 = plt.subplots(figsize=(8,4))
 
     pc = ax1.pcolormesh(ds_1m.time, ds_1m.size*1e6, ds_1m.counts.T, 
-                        cmap='viridis', vmin=0, vmax=25)
+                        cmap='viridis', vmin=0, vmax=20)
 
     ax1.set_ylabel('Diameter [μm]')
     ax1.set_xlabel('Time [UTC]')
@@ -105,7 +105,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.filename == 'latest':
-        path = list(Path('.').glob('*.nc'))
+        path = list(Path('data').glob('*.nc'))
         print(path)
         filename = sorted(path)[-1]
         print(filename)
